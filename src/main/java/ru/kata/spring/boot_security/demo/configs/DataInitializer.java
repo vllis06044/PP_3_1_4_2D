@@ -1,4 +1,4 @@
 package ru.kata.spring.boot_security.demo.configs;
 
-public class MvcConfig {
+public class DataInitializer {
 }
