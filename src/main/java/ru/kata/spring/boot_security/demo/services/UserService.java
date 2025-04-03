@@ -1,12 +1,13 @@
-package vllis.PP_3_1_1_springboot.services;
+package ru.kata.spring.boot_security.demo.services;
 
-import vllis.PP_3_1_1_springboot.entities.User;
+import ru.kata.spring.boot_security.demo.entities.User;
 import java.util.List;
 
 public interface UserService {
-    void create(User user);
-    void update(User user);
-    void delete(Long id);
-    User getById(Long id);
-    List<User> getAll();
+    List<User> getAllUsers();
+    User getUserById(Long id);
+    void saveUser(User user);
+    void updateUser(Long id, User user); // Исправленная сигнатура
+    void deleteUser(Long id);
+    User findByUsername(String username);
 }
