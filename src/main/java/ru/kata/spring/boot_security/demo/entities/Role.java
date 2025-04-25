@@ -1,22 +1,21 @@
 package ru.kata.spring.boot_security.demo.entities;
 
-import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
-
+import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "roles")
 public class Role implements GrantedAuthority {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String name;
 
-    public Role() {
-    }
+    public Role() {}
 
     public Role(String name) {
         this.name = name;

@@ -45,13 +45,11 @@
             z-index: 1000;
             top: 70px; /* Учитываем высоту navbar, чтобы поместить меню под ним */
         }
-
         .container-main {
             margin-left: 220px; /* Учитываем ширину меню */
             margin-right: 20px; /* Добавляем отступ справа */
             padding-top: 76px; /* Учитываем высоту навигационной панели и отступ для меню */
         }
-
         .menu-btn {
             background-color: transparent;
             border: none;
@@ -66,19 +64,49 @@
             padding-left: 20px; /* Отступ текста слева */
             border-radius: 4px 4px 4px 4px;
         }
-
         .menu-btn:hover {
             background-color: #057AFB; /* Цвет фона при наведении */
             color: white; /* Цвет текста при наведении */
         }
-
         .col-constructor-name {
             font-size: 16px;
         }
-
         .table-container {
             max-height: 1000px; /* Замените это значение на желаемую максимальную высоту */
             overflow-y: auto; /* Добавляет вертикальную прокрутку, если контент превышает высоту */
+        }
+        /* Стили для кнопки "Add new user" */
+        .btn-add-user {
+            background-color: #28a745; /* Зеленый фон */
+            color: white; /* Белый текст */
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .btn-add-user:hover {
+            background-color: #218838; /* Темнее зеленый при наведении */
+        }
+        /* Стили для формы добавления пользователя */
+        .form-group label {
+            font-weight: bold;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+        }
+        .form-group input[type="number"] {
+            text-align: left; /* Выравнивание чисел слева */
+        }
+        .form-group select[multiple] {
+            height: 50px;
+        }
+        .form-background {
+            background-color: #e9ecef; /* Светло-серый фон */
+            padding: 10px 20px;
+            border-radius: 10px 10px 0 0; /* Скругление верхних углов */
+            margin-bottom: 10px;
         }
     </style>
 </head>
@@ -98,7 +126,6 @@
         <button class="btn btn-link text-secondary font-size-20" type="submit">Logout</button>
     </form>
 </nav>
-
 <div class="menu">
     <div class="menu">
         <th:block sec:authorize="hasRole('ROLE_ADMIN')">
@@ -117,7 +144,6 @@
         </th:block>
     </div>
 </div>
-
 <div class="container-main">
     <div>
         <h1>Admin panel</h1>
@@ -261,31 +287,44 @@
                 </div>
             </div>
             <div class="tab-pane fade" id="newuser" role="tabpanel" aria-labelledby="newuser-tab">
-                <form th:action="@{/admin/add}" method="post">
-                    <div class="form-group">
-                        <label for="firstName">First Name:</label>
-                        <input type="text" class="form-control" id="firstName" name="firstName" required/>
+                <form th:action="@{/admin/add}" method="post" class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-sm-6">
+                            <div class="form-background">
+                                <h4>Add new user</h4>
+                            </div>
+                            <div class="form-group">
+                                <label for="firstName">First Name:</label>
+                                <input type="text" class="form-control" id="firstName" name="firstName" required/>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name:</label>
+                                <input type="text" class="form-control" id="lastName" name="lastName" required/>
+                            </div>
+                            <div class="form-group">
+                                <label for="age">Age:</label>
+                                <input type="number" class="form-control" id="age" name="age" required/>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input type="email" class="form-control" id="email" name="email" required/>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password:</label>
+                                <input type="password" class="form-control" id="password" name="password" required/>
+                            </div>
+                            <div class="form-group">
+                                <label for="roles">Roles:</label>
+                                <select class="form-control" id="roles" name="roleIds" multiple="multiple" required>
+                                    <option th:each="role : ${roles}" th:value="${role.id}"
+                                            th:text="${role.name}"></option>
+                                </select>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-add-user">Add new user</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="lastName">Last Name:</label>
-                        <input type="text" class="form-control" id="lastName" name="lastName" required/>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" class="form-control" id="email" name="email" required/>
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password:</label>
-                        <input type="password" class="form-control" id="password" name="password" required/>
-                    </div>
-                    <div class="form-group">
-                        <label for="roles">Roles:</label>
-                        <select class="form-control" id="roles" name="roleIds" multiple="multiple" required>
-                            <option th:each="role : ${roles}" th:value="${role.id}"
-                                    th:text="${role.name}"></option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Add User</button>
                 </form>
             </div>
         </div>

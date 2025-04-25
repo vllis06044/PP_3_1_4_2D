@@ -1,4 +1,22 @@
 .badge {
     font-size: 0.9em;
     padding: 0.5em 0.75em;
+    background-color: #4e4376;
+    color: white;
+    border-radius: 15px;
+}
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    margin-top: 20px;
+    width: 150px;
+    border-radius: 5px;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+    border-color: #218838;
 }
