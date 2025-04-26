@@ -64,20 +64,16 @@ public class UserServiceImpl implements UserService {
     public void updateUser(Long id, User updatedUser) {
         User existingUser = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-
         existingUser.setFirstName(updatedUser.getFirstName());
         existingUser.setLastName(updatedUser.getLastName());
         existingUser.setEmail(updatedUser.getEmail());
         existingUser.setAge(updatedUser.getAge());
-
         if (!updatedUser.getPassword().isEmpty()) {
             String encodedPassword = passwordEncoder.encode(updatedUser.getPassword());
             existingUser.setPassword(encodedPassword);
         }
-
         Set<Role> updatedRoles = roleService.getRolesByIds(updatedUser.getRoleIds());
         existingUser.setRoles(updatedRoles);
-
         userRepository.save(existingUser);
     }
 
