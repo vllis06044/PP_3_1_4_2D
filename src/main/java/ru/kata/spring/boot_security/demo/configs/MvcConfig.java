@@ -10,6 +10,7 @@ import org.thymeleaf.spring6.view.ThymeleafViewResolver;
 
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
+
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("redirect:/login");
@@ -17,6 +18,7 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/user").setViewName("user-page");
         registry.addViewController("/admin").setViewName("admin-page");
     }
+
     @Bean
     public SpringResourceTemplateResolver templateResolver() {
         SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
@@ -26,6 +28,7 @@ public class MvcConfig implements WebMvcConfigurer {
         resolver.setCharacterEncoding("UTF-8");
         return resolver;
     }
+
     @Bean
     public SpringTemplateEngine templateEngine() {
         SpringTemplateEngine engine = new SpringTemplateEngine();

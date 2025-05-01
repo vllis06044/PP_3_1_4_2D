@@ -9,11 +9,11 @@ import ru.kata.spring.boot_security.demo.entities.Role;
 import ru.kata.spring.boot_security.demo.entities.User;
 import ru.kata.spring.boot_security.demo.services.RoleService;
 import ru.kata.spring.boot_security.demo.services.UserService;
-
 import java.util.Set;
 
 @Component
 public class DataInitializer {
+
     private final UserService userService;
     private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
