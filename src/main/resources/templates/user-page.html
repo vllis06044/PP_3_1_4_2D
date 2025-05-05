@@ -72,13 +72,6 @@
     </form>
 </nav>
 <div class="menu">
-    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-        <a th:href="@{'/admin'}">
-            <button class="menu-btn">
-                Admin
-            </button>
-        </a>
-    </th:block>
     <th:block sec:authorize="hasRole('ROLE_USER')">
         <button class="menu-btn" style="background-color: #057AFB; color: white;">
             User
@@ -122,7 +115,6 @@
     </div>
 </div>
 
-<!-- Scripts -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

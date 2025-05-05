@@ -174,7 +174,6 @@
     </div>
 </div>
 
-<!-- Add User Modal -->
 <div class="modal fade" id="add-user-modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -220,7 +219,6 @@
     </div>
 </div>
 
-<!-- Edit User Modal -->
 <div class="modal fade" id="edit-user-modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -267,7 +265,6 @@
     </div>
 </div>
 
-<!-- Delete User Modal -->
 <div class="modal fade" id="delete-user-modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -311,7 +308,6 @@
     </div>
 </div>
 
-<!-- Scripts -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -343,7 +339,6 @@
         });
     }
 
-    // Добавление пользователя через форму "New user"
     $("#new-user-form").on("submit", function (e) {
         e.preventDefault();
 
@@ -375,7 +370,6 @@
         });
     });
 
-    // Редактирование пользователя
     $(document).on("click", ".edit-btn", function () {
         const userId = $(this).data("id");
         $.get(`${API_URL}/${userId}`, function (user) {
@@ -414,7 +408,6 @@
         });
     });
 
-    // Удаление пользователя
     $(document).on("click", ".delete-btn", function () {
         const userId = $(this).data("id");
         $.get(`${API_URL}/${userId}`, function (user) {
@@ -441,7 +434,6 @@
         });
     });
 
-    // Инициализация
     $(document).ready(function () {
         loadUsers();
     });
