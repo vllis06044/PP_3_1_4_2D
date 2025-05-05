@@ -15,13 +15,11 @@
             z-index: 1000;
             top: 70px;
         }
-
         .container-main {
             margin-left: 220px;
             margin-right: 20px;
             padding-top: 76px;
         }
-
         .menu-btn {
             background-color: transparent;
             border: none;
@@ -36,27 +34,22 @@
             padding-left: 20px;
             border-radius: 4px 4px 4px 4px;
         }
-
         .menu-btn:hover {
             background-color: #057AFB;
             color: white;
         }
-
         .col-constructor-name {
             font-size: 16px;
         }
-
         .table-container {
             max-height: 1000px;
             overflow-y: auto;
         }
-
         .table td, .table th {
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
-
         .table th, .table td {
             width: 16.6667%;
         }
@@ -78,7 +71,6 @@
         <button class="btn btn-link text-secondary font-size-20" type="submit">Logout</button>
     </form>
 </nav>
-
 <div class="menu">
     <th:block sec:authorize="hasRole('ROLE_ADMIN')">
         <a th:href="@{'/admin'}">
@@ -87,14 +79,12 @@
             </button>
         </a>
     </th:block>
-
     <th:block sec:authorize="hasRole('ROLE_USER')">
         <button class="menu-btn" style="background-color: #057AFB; color: white;">
             User
         </button>
     </th:block>
 </div>
-
 <div class="container-main">
     <div>
         <h1>User Information Page</h1>
@@ -118,17 +108,12 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td th:text="${user.id}"></td>
-                        <td th:text="${user.firstName}"></td>
-                        <td th:text="${user.lastName}"></td>
-                        <td th:text="${user.age}"></td> <!-- Добавляем отображение возраста -->
-                        <td th:text="${user.email}"></td>
-                        <td>
-                            <span th:each="role, iterStat : ${user.roles}">
-                                <span th:text="${role.name.substring(5)}"></span>
-                                <span th:if="${!iterStat.last}">, </span>
-                            </span>
-                        </td>
+                        <td id="user-id"></td>
+                        <td id="user-firstName"></td>
+                        <td id="user-lastName"></td>
+                        <td id="user-age"></td>
+                        <td id="user-email"></td>
+                        <td id="user-roles"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -137,31 +122,26 @@
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script>
-    jQuery(document).ready(function () {
-        // Показываем тост с задержкой 3000 мс (3 секунды)
-        jQuery('.toast').toast({delay: 3000}).toast('show');
-        // Создаем предупреждающее сообщение
-        const alertPlaceholder = jQuery('#liveAlertPlaceholder');
-        const alertTrigger = jQuery('#liveAlertBtn');
-        function alert(message, type) {
-            const wrapper = jQuery('<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + message + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"></button></div>');
-            alertPlaceholder.append(wrapper);
-        }
-        if (alertTrigger) {
-            alertTrigger.on('click', function () {
-                alert('Отлично, вы запустили это предупреждающее сообщение!', 'success');
-            });
-        }
+    document.addEventListener("DOMContentLoaded", function () {
+        fetch('/api/user/me')
+            .then(response => {
+                if (!response.ok) throw new Error("Ошибка загрузки данных");
+                return response.json();
+            })
+            .then(data => {
+                document.getElementById("user-id").textContent = data.id;
+                document.getElementById("user-firstName").textContent = data.firstName;
+                document.getElementById("user-lastName").textContent = data.lastName;
+                document.getElementById("user-age").textContent = data.age;
+                document.getElementById("user-email").textContent = data.email;
+                document.getElementById("user-roles").textContent = data.roles.map(r => r.name.replace("ROLE_", "")).join(", ");
+            })
+            .catch(error => console.error("Ошибка:", error));
     });
 </script>
 </body>

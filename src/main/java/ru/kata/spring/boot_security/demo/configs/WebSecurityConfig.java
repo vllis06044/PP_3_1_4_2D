@@ -13,7 +13,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 public class WebSecurityConfig {
-
     private final AuthenticationSuccessHandler successUserHandler;
 
     @Autowired
@@ -24,14 +23,12 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/login", "/error", "/css/**", "/js/**", "/images/**").permitAll()
-                        .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/user/**").hasAnyRole("USER", "ADMIN")
                         .anyRequest().authenticated()
                 )
-
                 .formLogin(form -> form
                         .loginPage("/login")
                         .loginProcessingUrl("/process_login")
@@ -41,7 +38,6 @@ public class WebSecurityConfig {
                         .failureUrl("/login?error")
                         .permitAll()
                 )
-
                 .logout(logout -> logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                         .logoutSuccessUrl("/login")
@@ -49,11 +45,9 @@ public class WebSecurityConfig {
                         .deleteCookies("JSESSIONID")
                         .permitAll()
                 )
-
                 .csrf(csrf -> csrf
                         .ignoringRequestMatchers("/api/**")
                 );
-
         return http.build();
     }
 
